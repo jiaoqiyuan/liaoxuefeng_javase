@@ -1,13 +1,24 @@
 package com.feiyangedu.sample;
 
-public class Student {
-    private String name;
-
-    public Student() {
-        this("unnamed");
-    }
+public class Student extends Person{
+    private int score;
 
     public Student(String name) {
-        this.name = name;
+        super(name);
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+    public String hello() {
+        return super.hello() + "!";
+    }
+
+    public void run() {
+        System.out.println("Student " + getName() + " is running");
     }
 }
