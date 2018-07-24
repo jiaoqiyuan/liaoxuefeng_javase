@@ -208,12 +208,71 @@ Integer prop = Integer.getInteger("cpus");
 - java包装类型定义了一些有用的静态变量
 - java包装类型全部继承自Number这个类
 
-```flow
-st=>start: Start
-op=>operation: Your Operation
-cond=>condition: Yes or No?
-e=>end
-st->op->cond
-cond(yes)->e
-cond(no)->op
+![Number][1]
+
+------
+
+- JDK的包装类型可以把基本类型包装成class
+- 自动装箱和拆箱是编译器完成的（JDK >= 1.5）
+- 装箱和拆箱会影响执行效率
+- 注意拆箱可能发生NullPointException
+
+### JavaBean
+- JavaBean是一种符合命名规范的class
+- JavaBean通过getter/setter来定义属性
+- 属性是一种通用的叫法，并非Java语法规定
+- 可以利用IDE快速生成getter和setter
+- 使用Introspector.getBeanInfo获取属性列表
+
+### 枚举类
+- enum可以定义常亮类型，它被编译器编译为：final class Xxx extends Enum {...}
+- name()获取常量定义的字符串，注意不要使用toString()（toString方法可能被覆写）
+- ordinal()返回常量定义的顺序（无实质意义）
+- 可以为enum类编写构造方法、字段和方法
+- 构造方法声明为private（不声明也可以JDK10）
+
+### 常用工具类
+Math
+    
+    Math提供了数学计算的静态方法
+- abs / min / max
+- pow / sqrt / exp / log / log10
+- sin / cos / tan / asin / acos ...
+
+- 常量
+    - PI = 3.14159...
+    - E = 2.71828...
+- Math.random()方法生成一个随机数：
+    - 0 <= Math.random() < 1
+    - 可用于生成某个区间的随机数
+```java
+long MIN = 1000;
+long MAX = 9000;
+double x2 = Math.random() * (MAX - MIN) + MIN;
+double r = (long) x2;
 ```
+
+Random
+    
+    Random用来创建伪随机数
+- nextInt / nextLong / nextFloat...
+- nextInt(N)生成不大于N的随机数
+- 什么是伪随机数？
+    - 给定种子后伪随机数算法会生成完全相同的序列
+    - 不给定种子时Random使用系统当前时间戳作为种子
+
+SecureRandom
+
+    SecureRandom用于创建安全的随机数，缺点是比较慢
+    
+BigInteger
+
+    BigInteger用任意多个int[]来表示非常大的整数。
+
+BigDecimnal
+
+    BigDecimal表示任意精度的浮点数。
+    BigInteger和BigDecimnal多用于财务计算中。
+
+
+[1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
