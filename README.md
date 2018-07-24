@@ -148,3 +148,72 @@ String特点：
 - 字符串操作不改变原来字符串内容，而是返回新的字符串
 - 常用字符串操作：提取字串、查找、替换、大小写转换等
 - 字符串和byte[]转换时需要注意编码，建议使用UTF-8编码
+
+### StringBuilder
+- StringBuilder可以高效拼接字符串
+- StringBuilder是可变对象，会预先分配缓冲区。
+- 可以进行链式操作，实现链式操作的关键是返回实例本身。
+
+StringBuffer
+- StringBuffer是StringBuilder的线程安全版本，接口与StringBuilder完全相同
+- 没有必要使用StringBuffer
+
+### 包装类型
+java数据类型：
+- 基本类型：int，boolean, float……
+- 引用类型：所有class类型
+
+基本类型不可以当作一个对象，要想以对象访问，就需要包装类型
+JDK为每种类型都创建类对应的包装类型
+
+| 基本类型 | 对应的引用类型 |
+| :------:| :-----------:|
+| boolean | Boolean |
+| byte | Byte |
+| short | Short |
+| int | Integer |
+| long | Long |
+| float | Float |
+| double | Double |
+| char | Character |
+
+例如：
+```
+Integer n = new Integer(99);
+int i = n.intValue();
+```
+```
+int i = 100;
+
+Integer n1 = new Integer(i);
+Integer n2 = Integer.valueOf(i);
+Integer n3 = Integer.valueOf("100");
+
+int x1 = n1.intValue();
+int x2 = Integer.parseInt("100");
+String s = n1.toString();
+
+//注意这个getInteger，并不是从字符串中获取整数，而是从系统环境变量中获取相应的值
+Integer prop = Integer.getInteger("cpus");
+
+```
+
+- 编译器可以自动在int和Integer之间转型：
+    - 自动装箱(auto boxing)：int -> Integer
+    - 自动拆箱(auto unboxing)：Integer -> int
+- 自动装箱和自动拆箱只发生在编译阶段
+- 装箱和拆箱会影响执行效率
+- 编译后的class代码是严格区分基本类型和引用类型的
+- Integer -> int 执行时可能会报错（如果实例对象为null，则拆箱失败：NullPointException）
+- java包装类型定义了一些有用的静态变量
+- java包装类型全部继承自Number这个类
+
+```flow
+st=>start: Start
+op=>operation: Your Operation
+cond=>condition: Yes or No?
+e=>end
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
