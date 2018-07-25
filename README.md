@@ -178,11 +178,11 @@ JDK为每种类型都创建类对应的包装类型
 | char | Character |
 
 例如：
-```
+```java
 Integer n = new Integer(99);
 int i = n.intValue();
 ```
-```
+```java
 int i = 100;
 
 Integer n1 = new Integer(i);
@@ -275,4 +275,18 @@ BigDecimnal
     BigInteger和BigDecimnal多用于财务计算中。
 
 
+## Java异常处理
+
+### 错误处理
+- 计算机运行过程中错误是不可避免的
+
+Java异常体系：
+
+![Java异常体系][2]
+
+- Java规定必须捕获的异常是Exception及其子类，但不包括RuntimeException及其子类
+- 
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
+[2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
