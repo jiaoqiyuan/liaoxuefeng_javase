@@ -335,7 +335,36 @@ Java异常体系：
 
 ## Java反射与泛型
 ### Class类
+- JVM为每个class创建对应的Class实例来保存class的所有信息
+- 获取一个class对应的Class实例后，就可以获取该class的所有信息
+- 通过class实例获取class信息的方法称为反射Reflection
+- JVM总是动态加载class，可以在运行期根据条件控制加载class
 
+### 访问字段
+- Field字段封装了字段的所有信息
+- 通过Class实例的方法可以获取Filed实例：getField / getFields / getDeclaredField / getDeclaredFields
+- 通过Field实例可以获取字段信息：getName / getType / getModifiers
+- 通过Field实例可以读取或设置某个对象的字段： get(Object name) / set(Object instance, Object fieldValue)
+- 通过设置setAccessible(true)来访问非public字段，但是注意：setAccessible(true)可能会失败，如果jvm定义来SecurityManager，并且SecurityManager的规则阻止对该Field设置accessible，就会导致失败
+
+### 调用方法
+- Method对象封装了方法的所有信息
+- 通过class实例的方法可以获取Method实例：getMethod / getMethods / getDeclaredMethod / getDeclaredMehtods
+- 通过Method实例可以获取方法信息：getName / getReturnType / getParameterTypes / getModifiers
+- 通过Method实例可以调用某个对象的方法：Object invoke(Object instance, Object... parameters)
+- 通过设置setAccessible(true)来访问非public方法
+
+### 调用构造方法
+- Constructor对象封装来构造函数的所有信息
+- 通过Class实例的方法可以获取Constructor实例： getConstructor / getConstructors / getDeclaredConstructor / getDeclaredConstructors
+- 通过Constructor实例可以创建一个实例对象：newInstance(Object... parameters)
+- 通过设置setAccessible(true)来访问非public构造方法
+
+### 获取继承关系
+- 通过Class对象获取继承关系：
+    - getSuperclass()
+    - getInterfaces()
+- 通过Class对象的isAssignableFrom()方法可以判断一个向上转型是否正确。
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
