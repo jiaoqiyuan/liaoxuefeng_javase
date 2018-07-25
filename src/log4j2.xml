@@ -35,7 +35,7 @@
             <AppenderRef ref="all" level="info" />
             <AppenderRef ref="err" level="error" />
         </Root>
-        <Logger name="two_exception.log4j_practice" level="debug">
+        <Logger name="three_exception.log4j_practice" level="debug">
             <AppenderRef ref="console" level="debug" />
         </Logger>
     </Loggers>

@@ -1,6 +1,12 @@
-07-25 14:35:15.330 [main] ERROR two_exception.log4j_practice.Main
+07-25 14:35:15.330 [main] ERROR three_exception.log4j_practice.Main
 Error when create person.
 
 java.lang.IllegalArgumentException: name is null.
-	at two_exception.log4j_practice.Person.<init>(Person.java:9) ~[javaprojects/:?]
-	at two_exception.log4j_practice.Main.main(Main.java:15) [javaprojects/:?]
+	at three_exception.log4j_practice.Person.<init>(Person.java:9) ~[javaprojects/:?]
+	at three_exception.log4j_practice.Main.main(Main.java:15) [javaprojects/:?]
+07-25 15:01:02.089 [main] ERROR three_exception.log4j_practice.Main
+Error when create person.
+
+java.lang.IllegalArgumentException: name is null.
+	at three_exception.log4j_practice.Person.<init>(Person.java:9) ~[javaprojects/:?]
+	at three_exception.log4j_practice.Main.main(Main.java:15) [javaprojects/:?]
