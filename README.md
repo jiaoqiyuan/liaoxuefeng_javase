@@ -332,5 +332,10 @@ Java异常体系：
 - 如果要更换Log4j，只需要移除log4j.xml和相关jar包
 - 只有扩展log4j时，才需要引入Log4j的接口
 
+
+## Java反射与泛型
+### Class类
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
