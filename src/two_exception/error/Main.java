@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 public class Main {
     public static void main(String[] args) {
-        test("UTF-8");
+        //test("UTF-8");
         test("ABC");
     }
 

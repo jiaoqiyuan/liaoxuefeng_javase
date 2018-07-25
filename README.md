@@ -285,8 +285,52 @@ Java异常体系：
 ![Java异常体系][2]
 
 - Java规定必须捕获的异常是Exception及其子类，但不包括RuntimeException及其子类
-- 
+- Java使用异常来表示错误，通过try{...} catch {...}捕获异常
+- Java的异常是class，并且从Throwable集成
+- Error是无需捕获的严重错误
+- Exception是应该捕获的可处理的错误
+- RuntimeException无需强制捕获，非RuntimeException(CheckedException)需要强制捕获，或者用throws声明。
 
+### 断言
+
+- 断言是一种调试方式，断言失败会抛出AssertionError
+- 只能在开发和测试阶段启动断言
+- 对可恢复的错误不能使用断言，而应该抛出异常
+- 断言很好被使用，更好的方法是编写单元测试。
+
+### Logging
+
+- 日志是为了替代System.out.println()，可以定义格式，重定向到文件。
+- 日志可以存档，便于问题追踪
+- 日志可以按级别分类，便于打开和关闭某些级别
+- 可以根据配置文件调整日志，无需修改代码
+- JDK提供了Logging：java.util.logging
+
+### Commons Logging
+
+- Commons Logging定义了6个日志级别：
+    - FATAL
+    - ERROR
+    - WARNING
+    - INFO <---------------默认级别
+    - DEBUG
+    - TRACE
+
+- Commons Logging 是使用最广泛的日志模块
+- Commons Logging 的API非常简单
+- Commons Logging 可以自动使用其他日志模块
+
+## Log4j
+
+- 目前最流行的日志框架：
+    - 1.x: Log4j
+    - 2.x: Log4j2
+- 始终使用Commons Logging接口来写入日志
+- 开发阶段无需引入Log4j
+- 使用Log4j只需要把正确的配置文件和相关的jar包放入classpath
+- 使用配置文件可以灵活修改日志，无需修改代码
+- 如果要更换Log4j，只需要移除log4j.xml和相关jar包
+- 只有扩展log4j时，才需要引入Log4j的接口
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg

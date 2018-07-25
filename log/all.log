@@ -1,0 +1,15 @@
+07-25 14:35:15.326 [main] INFO  two_exception.log4j_practice.Main
+Create Person Xiao Ming
+
+07-25 14:35:15.330 [main] INFO  two_exception.log4j_practice.Main
+call hello(): Hello, Xiao Ming
+
+07-25 14:35:15.330 [main] ERROR two_exception.log4j_practice.Main
+Error when create person.
+
+java.lang.IllegalArgumentException: name is null.
+	at two_exception.log4j_practice.Person.<init>(Person.java:9) ~[javaprojects/:?]
+	at two_exception.log4j_practice.Main.main(Main.java:15) [javaprojects/:?]
+07-25 14:35:15.334 [main] INFO  two_exception.log4j_practice.Main
+Program end.
+
