@@ -275,9 +275,11 @@ BigDecimnal
     BigInteger和BigDecimnal多用于财务计算中。
 
 
-## Java异常处理
+# Java异常处理
 
-### 错误处理
+## 错误处理
+
+### Java的异常
 - 计算机运行过程中错误是不可避免的
 
 Java异常体系：
@@ -291,6 +293,7 @@ Java异常体系：
 - Exception是应该捕获的可处理的错误
 - RuntimeException无需强制捕获，非RuntimeException(CheckedException)需要强制捕获，或者用throws声明。
 
+## 断言和日志
 ### 断言
 
 - 断言是一种调试方式，断言失败会抛出AssertionError
@@ -333,7 +336,10 @@ Java异常体系：
 - 只有扩展log4j时，才需要引入Log4j的接口
 
 
-## Java反射与泛型
+# Java反射与泛型
+
+## 反射
+
 ### Class类
 - JVM为每个class创建对应的Class实例来保存class的所有信息
 - 获取一个class对应的Class实例后，就可以获取该class的所有信息
@@ -365,6 +371,38 @@ Java异常体系：
     - getSuperclass()
     - getInterfaces()
 - 通过Class对象的isAssignableFrom()方法可以判断一个向上转型是否正确。
+
+## 泛型
+
+### 什么是泛型
+- 泛型就是编写模板代码来适应任意类型
+- 不必对类型进行强制转换
+- 编译器将对类型进行检查
+- 注意泛型的继承关系：
+    - 可以把ArrayList<Integer>向上转型为list<Integer>（T不能变）
+    - 不能把ArrayList<Integer>向上转型为ArrayList<Number>
+
+### 使用泛型
+- 使用泛型时，把泛型参数<T>替换为需要的class类型：List<String> list = new ArrayList<String>()
+- 可以省略编译器能自动推断出的类型：List<String> list = new ArrayList<>()
+- 不指定泛型参数类型时，编译器会给出警告，且只能将<T>视为Object类型
+
+### 编写泛型
+- 编写泛型事，需要定义泛型类型<T>
+```java
+public class Pair<T> {...}
+```
+- 静态方法不能引用泛型类型<T>，必须定义其他类型<K>来实现“泛型”
+```java
+public static <K> Pair<K> create(K first, K last) {...}
+```
+- 泛型可以同事定义多种类型<T, K>
+```java
+public class Pair<T, K> {...}
+```
+
+### 擦拭法
+- 
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
