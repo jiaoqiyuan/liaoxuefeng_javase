@@ -402,7 +402,14 @@ public class Pair<T, K> {...}
 ```
 
 ### 擦拭法
-- 
+- Java的范型采用擦拭法实现
+- 擦拭法决定来范型<T>:
+    - 不能是基本类型，例如int
+    - 不能获取带范型类型的Class，如：Pair<String>.class
+    - 不能判断带范型类型的类型， 如：x instanceof Pair<String>
+    - 不能实例化T类型，如：new T()
+    - 范型方法要防止重复定义方法，例如：public boolean equals(T obj)
+- 子类可以获取父类的范型类型<T>
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
