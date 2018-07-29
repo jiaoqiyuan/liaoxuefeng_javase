@@ -456,5 +456,19 @@ list的特点
 如果不在List中查找元素：
 - 不必覆写equals方法
 
+## Map
+### 使用Map集合
+- Map<K, V>是一种映射表，可以通过Key快速查找Value
+- 可以通过for……each遍历KeySet()
+- 可以通过for……each遍历entryset()
+- 需要对Key排序时使用TreeMap
+- 通常使用HashMap
+
+### 编写eauals和hashCode方法
+- 作为Key的对象必须正确覆写equals和hashCode
+- 一个类如果覆写类equals，就必须覆写hashCode
+- hashCode可以通过Objects.hashCode()辅助实现
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
