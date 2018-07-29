@@ -411,5 +411,50 @@ public class Pair<T, K> {...}
     - 范型方法要防止重复定义方法，例如：public boolean equals(T obj)
 - 子类可以获取父类的范型类型<T>
 
+### Java类型与反射
+- 部分反射API是范型：
+    - Class<T>
+    - Constructor<T>
+- 可以声明带泛型的数组，但是不能直接创建带泛型的数组，必须潜质转型
+- 可以通过Array.newInstance(Class<T>, int)创建T[]数组，需要强制转型
+
+
+# Java集合
+
+## Java集合简介
+
+### Java集合简介
+- java集合定义在java.util包中
+- 常用的集合类包括List、Set、Map等
+- Java集合使用统一的Iterator遍历集合
+- 尽量不要使用遗留接口
+
+## List
+
+### 使用List
+- ArrayList VS LinkedList:
+
+|       | ArrayList | LinkedList |
+| :---: | :-------: | :--------: |
+|获取指定元素| 速度很快| 需要从头开始查找元素
+|添加删除元素| 速度很快| 速度很快
+|在指定位置添加/删除| 需要移动元素| 不需要移动元素
+|内存占用| 少 | 较大
+
+list的特点
+- 按照索引顺序访问的长度可变的链表
+- 优先使用ArrayList而不是LinkedList
+- 可以直接使用for……each遍历
+- 可以和Array相互转换
+
+### 编写equals方法
+如果在List中查找元素：
+- List的实现类通过元素的equals方法比较两个元素
+- 放入的元素必须正确覆写equlals方法， JDK提供类的String，Integer等已经覆写类eauqls方法
+- 编写equals方法可借助Object.equals()判断
+
+如果不在List中查找元素：
+- 不必覆写equals方法
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
