@@ -469,6 +469,13 @@ list的特点
 - 一个类如果覆写类equals，就必须覆写hashCode
 - hashCode可以通过Objects.hashCode()辅助实现
 
+### 使用Set
+- Set用于存储不重复的元素集合
+- 放入set的元素与作为Map的Key的要求相同，正确实现equals方法和hashCode方法。
+- 利用set可以取出重复元素
+- 遍历SortedSet按照元素的排序顺序遍历，也可以自定义排序算法。
+
+
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
