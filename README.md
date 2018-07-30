@@ -469,12 +469,56 @@ list的特点
 - 一个类如果覆写类equals，就必须覆写hashCode
 - hashCode可以通过Objects.hashCode()辅助实现
 
+## Set集合
 ### 使用Set
 - Set用于存储不重复的元素集合
 - 放入set的元素与作为Map的Key的要求相同，正确实现equals方法和hashCode方法。
 - 利用set可以取出重复元素
 - 遍历SortedSet按照元素的排序顺序遍历，也可以自定义排序算法。
 
+## Queue
+### 使用Queue
+- Queue是一个先进先出的队列
+- LinkedList实现了Queue<E>接口
+- 获取队列长度：size()
+- 添加元素到队列：boolean add(E e) / boolean offer(E e)
+- 获取队列头部元素病删除： E remove() / E poll()
+- 获取队列头部元素但不删除：E element() / E peek()
+操作队列时都提供了两种方法的原因是，获取失败时：
+
+|       | throw Exception | 返回false或null |
+| :----:| :-------------: | :------------: |
+| 添加元素到队列 | add(E e) | boolean offer(E e) |
+|取队首元素并删除| E remove() | E poll() |
+|取队首元素但不删除| E element() | E peek() |
+
+-避免把null添加到队列
+
+### 使用PriorityQueue
+
+- PriorityQueue<E>的出队顺序与元素的优先级相关：remove()/poll()总是取优先级最高的元素
+- PriorityQueue<E>具有Queue<E>的接口：操作与Queue相同（参考上面的**使用Queue**）
+- PriorityQueue<E>实现一个优先队列
+- 从队首后去元素时，总是获取优先级最高的元素
+- 默认按元素比较的顺序排序（必须实现Comparable接口）
+- 可以通过Comparator自定义排序算法（不必实现Comparable接口）
+
+### 使用Deque
+- Deque<E>实现了一个双端队列（Double Ended Queue）:既可以添加到队尾，也可以添加到队首；既可以从队首获取，又可以从队尾获取
+
+|               |   Queue   |   Deque   |
+| :-----------: | :-------: | :-------: |
+|  添加元素到队尾 | add(E e)/offer(E e) | addLast(E e)/offerLast(E e) |
+| 取队首元素并删除 | E remove()/E poll() | E removeFirst()/E pollFirst() |
+| 取队首元素但不删除 | E element()/E peek() | E getFirst()/E peekFirst() |
+
+Deque特有方法：
+
+|               |   Queue   |
+| :-----------: | :-------: | 
+|  添加元素到队首 | addFirst(E e)/offerFirst(E e) | 
+| 取队尾元素并删除 | E removeLast()/E pollLast() | 
+| 取队尾元素但不删除 | E getLast()/E peekLast() | 
 
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg

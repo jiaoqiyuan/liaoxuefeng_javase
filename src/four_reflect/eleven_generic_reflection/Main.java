@@ -7,7 +7,8 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         Class<String> clazz = String.class;
-        String s1 = clazz.newInstance();
+        String s1 = clazz.getConstructor().newInstance();
+//        String s1 = clazz.newInstance();
         System.out.println(s1);
 
         Constructor<String> cons = clazz.getConstructor(String.class);
