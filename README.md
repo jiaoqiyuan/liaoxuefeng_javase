@@ -520,6 +520,132 @@ Deque特有方法：
 | 取队尾元素并删除 | E removeLast()/E pollLast() | 
 | 取队尾元素但不删除 | E getLast()/E peekLast() | 
 
+## Stack
+### 使用Stack
+- 栈是一种后进先出的数据结构。
+- 使用Deque实现Stack的功能
+- 操作栈的元素的方法:
+    - push(E e):压栈
+    - pop():出栈
+    - peek():取出栈顶元素但不出栈
+- Java使用Deque实现栈的功能，注意只调用push/pop/peek，避免使用Deque的其他方法
+- 不要使用遗留类Stack    
+
+## 最佳实践
+### Iterator迭代模式
+- Java的集合类可以实现for……each循环：List、Set、Queue、Deque。
+- 如何让自己编写的集合类使用for……each循环：
+    - 实现Iterable接口
+    - 返回Iterator对象
+    - 用Iterator对象迭代
+- 使用Iterator的好处：
+    - 对任何集合都采用同一种访问模型
+    - 调用者对集合内部结构一无所知
+    - 集合返回的Iterator对象知道如何迭代
+    - Iterator是一种抽象的数据访问模型
+    
+### 使用Collections
+- Collections是JDK提供的工具类：
+    - 创建空集合
+        - List<T> emptyList()
+        - Map(K, V) emptyMap()
+        - Set<T> emptySet()
+        
+    - 对List排序（必须传入可变List）
+        - void sort(List<T> list)
+        - void sort(List<T> list, Comparator<? super T> c)
+    - 随机重置List元素
+        - void shuffle(List<?> list)
+    - 创建单元素集合
+        - Set<T> singleton(T o)
+        - List<T> singletonList(T o)
+        - Map<K, V> singletonMap(K key, V value)
+    - 创建不可变集合
+        - List<T> unmodifiableList(List<? extends T> list)
+        - Set<T> unmodifiableSet(Set<? extends T> set)
+        - Map<K, V> unmodifiableMap(Map<? extends K, ? extends V> m)
+    - 排序/洗牌
+    - ……
+
+# Java IO编程
+## IO基础
+### IO简介
+- IO指输入输出：
+    - 输入是指从外部读数据到内存，例如，读文件，从网络读取数据等。
+    - 输出是把数据从内存输出到外部，比如写文件，输出到网络
+- IO流是一种顺序读写数据的模式
+    - 单向流动
+    - 以byte为最小单位（字节流）
+- 如果字符不是单字节表示的ASCII：
+    - Java提供了Reader/Writer表示字符流
+    - 字符流传输的最小数据单位是char
+    - 字符流输出的byte取决于编码方式
+    - Reader/Writer本质上是一个能自动编解码的InputStream/OutputStream
+- 同步IO
+    - 读写IO时代码等待数据返回后才继续执行后续的代码
+    - 代码编写简单，CPU执行效率地
+- 异步IO
+    - 读写IO时仅发出请求，然后立刻执行后续代码
+    - 代码编写复杂，CPU执行效率高
+- JDK提供的java.io是同步IO
+- JDK提供的java.nio是异步IO
+ 
+ |抽象类|InputStream|OutputStream|Reader|Writer|
+ |:---:|:---------:|:----------:|:----:|:----:|
+ |实现类|FileInputStream|FileOutputStream|FileReader|FileWriter|
+
+- Java的IO流的接口和实现是分离的：
+    - 字节流接口：InputStream / OutputStream
+    - 字符流接口：Reader/ Writer
+
+### File对象
+- java.io.File表示文件系统一个文件或者目录
+- 创建File对象本身不涉及IO操作
+- 获取路径/绝对路径/规范路径：getPath() / getAbsolutePath() / getCanonicalPath()
+- 可以获取目录的文件和子目录
+- 通过File对象可以创建或删除文件和目录
+
+### InputStream
+- java.io.InputStream是所有输入流的超类
+    - abstract int read():读取下一个字节，并返回字节（0-255），如果读到末尾，返回-1
+    - int read(byte[] b):读取若干字节病填充到byte[]数组，返回读取的字节数
+    - int read(byte[] , int off, int len):指定byte[]数组的偏移量和最大填充数
+    - void close():关闭输入流
+- InputStream定义了所有输入流的超类
+- FileInputStream实现了文件流输入
+- ByteArrayInputStream在内存中模拟一个字节流输入
+- 使用try(resource)保证InputStream正确关闭
+
+### OutputStream
+- java.io.OutputStream是所有输出流的超类
+    - abstract write(int b):吸入一个字节
+    - void write(byte[] b):写入byte[]数组的所有字节
+    - void write(byte[] b, int off, int len):写入byte[]数组指定范围的字节
+    - void close():关闭输出流
+    - void flush():将缓冲区内容输出(像磁盘网络设备并不是输出一个字节就立即写入，而是先把输出的字节放到内存的缓冲区中，等待缓冲区满后再一次性写入设备)
+- OutputStream定义了所有输出流的超类
+- FileOutputStream实现了文件流输出
+- ByteArrayOutputStream在内存中模拟一个字节流输出
+- 使用try(resource)保证OutputStream正确关闭    
+
+### Filter模式
+- JDK提供的InputStream包括：
+    - FileOutputStream：从文件中读取数据
+    - ServletInputStream：从HTTP请求读取数据
+    - Socket.getInputStream：从TCP连接读取数据
+    - ……
+- Java IO使用Filter模式为InputStream和OutputStream增加功能
+- 可以把一个InputStream和任意FilterInputStream组合
+- 可以把一个OutputStream和任意的FilterOutputStream组合
+- Filter模式可以在运行期间动态增加功能（又称Decorator模式）
+
+### 操作Zip
+- ZipInputStream是一种FilterInputStream：
+    - JarInputStream --> ZipInputStream --> InflaterInputStream --> FilterInputStream --> InputStream
+    - 可以直接读取Zip的内容
+- ZipOutputStream是一种OutputStream：可以直接写入Zip文件内容
+
+
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
