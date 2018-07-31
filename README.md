@@ -644,8 +644,76 @@ Deque特有方法：
     - JarInputStream --> ZipInputStream --> InflaterInputStream --> FilterInputStream --> InputStream
     - 可以直接读取Zip的内容
 - ZipOutputStream是一种OutputStream：可以直接写入Zip文件内容
+- ZipInputStream和ZipOutputStream都是FilterInputStream和FilterOutputStream
+- 配合FileInputStream和FileOutputStream就可以读写Zip文件
+
+### classpath资源
+- Java存放.class或jar包的目录也可以包含任意其他类型的文件
+- 从classpath读取文件可以避免不同环境下文件路径不一致的问题
+- 把资源存储在classpath中可以避免文件路径依赖
+- Class对象的GetResourceAsStream()可以从classpath读取资源
+- 需要检查返回的InputStream是否为null
+
+### 序列化
+- 序列化是指把一个java对象边城二进制内容（byte[]）
+    - 序列化后可以把byte[]保存到文件中
+    - 序列化后可以把byte[]通过网络传输
+- 一个Java要能序列化，必须实现Serializable接口：
+    - Serializable接口没有定义任何方法
+    - 空接口被称为“标记接口”（Marker Interface）
+- 反序列化是指一个二进制内容（byte[]）变成Java对象
+    - 反序列化后可以从文件读取byte[]并变为Java对象
+    - 反序列化后可以从网络读取byte[]并变为Java对象
+    - 反序列化时不调用构造方法
+- 可设置serialVersionUID作为版本号（非必须）
+- Java序列化机制仅适用于Java，如果需要与其他语言交换数据，必须使用通用的序列化方法，比如JSON    
+    
+### Reader
+java.io.Reader和java.io.InputStream的区别：
+
+|  InputStream  |  Reader  |
+|:-------------:|:--------:|
+|字节流，以byte为单位|字符流，以char为单位|
+|读取字节（-1，0-255）：int read()|读取字符(-1, 0-65535):int read()|
+|读到字节数组:int read(byte[] b)|读到字符数组:int read(char[] c)|
+|int read(byte[] b, int offset, int len)|int read(char[] c, int offset, int len)|
+
+- java.io.Reader是所有字符输入流的超类：
+    - int read():读取一个字符，并返回字符（0-65535），如果已读到末尾，返回-1
+    - int read(char[] c):读取若干字符并填充到char[]数组，返回读取的字符数
+    - int read(char[] c, int off, int len):指定char[]数组的偏移量和最大填充数
+    - void close():关闭Reader
+- Reader定义了所有字符输入流的超类
+- FileReader实现了文件字符流输入
+- CharArrayReader在内存中模拟一个字符流输入
+- Reader是给予InputStream构造的
+- FileReader使用系统默认编码，无法指定编码
+- 可以通过InputStreamReader指定编码
+- 使用try(resource)保证Reader正确关闭
+
+### Writer
+java.io.Writer和java.io.OutputStream的区别：
+
+|  OutputStream  |  Writer  |
+|:--------------:|:--------:|
+|字节流，以byte为单位|字符流，以char为单位|
+|写入字节（0-255）：void write(int b)|写入字符(0-65535):int write()|
+|写入字节数组:int write(byte[] b)|写入字符数组:int write(char[] c)|
+|int write(byte[] b, int offset, int len)|int write(char[] c, int offset, int len)|
+| |void write(String s)|
 
 
+- java.io.Writer是所有字符输入流的超类：
+    - int write(int c):写入一个字符（0-65535）
+    - int write(char[] c):写入若干字符数组的所有字符
+    - int write(char[] c, int off, int len):写入数组指定范围的字符
+    - void write(String s):写入String表示的所有字符
+- FileWriter实现了文件字符流输出
+- CharArrayWriter在内存模拟一个字符流输出
+- Writer基于OutputStream构造
+- FileWriter使用系统默认编码，无法指定编码，可以通过OutputStreamWriter指定编码
+- 使用try(resource)保证Writer正确关闭
+    
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg

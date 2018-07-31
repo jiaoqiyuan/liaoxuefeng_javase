@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        try(OutputStream output = new FileOutputStream("/home/jony/abc/readme.txt")) {
+        try(OutputStream output = new FileOutputStream("/home/jony/abc/readme.txt.bak")) {
             byte[] b1 = "Hello".getBytes("utf-8");
             output.write(b1);
             byte[] b2 = "你好".getBytes("utf-8");
