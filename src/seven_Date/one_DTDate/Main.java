@@ -11,5 +11,7 @@ public class Main {
 
         long t = now.getTime();
         System.out.println(t);
+
+        System.out.println(new Date(t));
     }
 }
