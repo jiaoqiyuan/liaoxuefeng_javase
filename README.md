@@ -717,7 +717,18 @@ java.io.Writer和java.io.OutputStream的区别：
 
 # Java处理日期和时间
 ## 概念
+### 概念
+- 理解日期、时间和时刻
+- 理解时区的概念
+- 理解夏令时，同一地区使用GMT/UTC和城市表示的时区可能导致时间不同
+    - GTM-05:00
+    - America/New_York
+- 理解locale用来针对当地用户习惯格式化日期、时间、数字、货币等。
+
 ### 
+
+
+
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
