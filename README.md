@@ -771,6 +771,104 @@ ZonedDateTime = LocalDateTime + Zoneld
 - Zoneld：新的时区对象（取代旧的java.util.TimeZone）
 - Instant:时刻对象（epoch seconds）
 
+## Java处理日期和时间
+### 最佳实践，java处理日期和时间
 
+| 数据库 | 对应Java类（旧） | 对应Java类（新） |
+| :---: |  :------------: |:--------------:|
+| DATETIME | java.util.Date | LocalDateTime |
+| Date | java.sql.Date | LocalDate |
+| TIME | java.sql.Time | LocalTime |
+| TIMESTAMP | java.sql.Timestamp | LocalDateTime |
+
+- 尽量使用java.time提供的API处理日期和时间
+- 存储到数据库：
+    - 日期：LocalDate -> DATE
+    - 时间：LocalTime -> TIME
+    - 日期 + 时间： LocalDateTime -> DATETIME
+    - 时刻：long -> BIGINT
+- 显示日期和时间：long -> String
+- 让JDK处理时区
+- 不要手动调整时差
+```java
+String epochToString(long epoch, Local lo, String zoneId) {
+    Instant ins = Instant.ofEpochMilli(epoch);
+    DateTimeFormatter f = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
+    return f.withLocale(lo).format(ZonedDateTime.ofInstant(ins, ZoneId.of(zoneId)));
+}
+
+输入：
+epoch = 1480468500000L
+Locale.CHINA, "Asia/Shanghai"
+Locale.US, "America/New_York"
+
+输出：
+2016-11-30 上午9:15
+Nov 29, 2016 8:15 PM
+```
+
+# JUnit单元测试
+## JUnit简介
+### JUnit Test
+
+- 什么是单元测试？
+    - 单元测试是针对最小的功能单元编写测试代码
+    - Java程序最小功能单元是方法
+    - 单元测试就是针对单个Java方法的测试
+- 测试驱动开发(TDD):
+    - 编写接口 -> 编写测试 -> 编写实现 <-N-> 运行测试 -Y-> 任务完成
+- 单元测试的好处
+    - 确保单个方法运行正常
+    - 如果修改了方法代码，只需要确保其对应的单元测试通过
+    - 测试代码本身就可以作为示例代码
+    - 可以自动化运行所有测试病获得测试报告
+- JUnit是一个开源的Java语言的单元测试框架
+    - 专门针对Java语言设计，使用最广泛
+    - JUnit是事实上的标准单元测试框架
+    - JUnit使用断言（Assertion）测试期望结果
+    - 可以方便地组织和运行测试
+    - 可以方便地查看测试结果
+    - 常用IDE都集成了JUnit
+    - 可以方便地集成到Maven
+ 
+- JUnit设计：
+    - TestCase： 一个TestCase便是一个测试
+    - TestSuite： 一个TestSuite包含一组TestCase，表示一组测试
+    - TestFixture： 一个TestFixture表示一个测试环境
+    - TestResult： 用于收集测试结果
+    - TestRunner： 用于运行测试
+    - TestListener： 用于监听测试过程， 收集测试数据
+    - Assert： 用于断言测试结果是否正确
+ - JUnit目前的版本 3.x/4.x/5.x
+
+| 版本 | JUnit 3.x | JUnit 4 | JUnit 5 |
+| :-----: | :-----: | :-----: | :-----: |
+| JDK | JDK < 1.5  | JDK >= 1.5 | JDK >= 1.8 |
+| class | class MyTest extends TestCase{} | class MyTest{} | class MyTest{} |
+| method | public testAbc(){} | @Test public abc(){} | @Test public abc(){} |
+ 
+- 使用Assert断言：
+    - 断言相等：assertEquals(100, x)
+    - 断言数组相等：assertArrayEquals({1,2,3}, x)
+    - 断言浮点数相等：assertEquals(4.2353, x, 0.0001)
+    - 断言为null:assertNull(x)
+    - 断言为true/false:assertTrue(x>0) assertFalse(x<0)
+    - 其他:assertNotEquals/assertNotNull
+- 一个TestCase包含一组相关的测试方法
+- 使用Assert断言测试结果（注意指定浮点数assertEquals要指定delta）
+- 每个测试方法必须完全独立
+- 测试代码必须非常简单
+- 不能为测试代码再编写测试
+- 测试需要覆盖各种输入条件，特别是边界条件
+
+##使用JUnit
+### 使用Before和After
+- 理解JUnit执行测试生命周期
+- @Before用于初始化测试对象，测试对象以实例变量存放
+- @After用于清理@Before创建的对象
+- @BeforeClass用于初始化耗时资源，以静态变量存放
+- @AfterClass用于清理@BeforeClass创建的资源
+
+ 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
