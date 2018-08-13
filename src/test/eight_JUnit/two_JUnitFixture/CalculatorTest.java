@@ -32,25 +32,25 @@ public void after() throws Exception {
 */ 
 @Test
 public void testCalcAdd2Numbers() {
-    int r = calc.caclulate("1+2");
+    int r = calc.calculate("1+2");
     assertEquals(3, r);
 }
 
 @Test
 public void testCalcAdd3Numbers() {
-int r = calc.caclulate("1+2+3");
+int r = calc.calculate("1+2+3");
 assertEquals(6, r);
 }
 
 @Test
 public void testCalcAddLargeNumbers() {
-    int r = calc.caclulate("123+456");
+    int r = calc.calculate("123+456");
     assertEquals(579, r);
 }
 
 @Test
 public void testCalcWithWhiteSpaces() {
-    int r = calc.caclulate("1 + 5 + 10");
+    int r = calc.calculate("1 + 5 + 10");
     assertEquals(16, r);
 }
 } 
