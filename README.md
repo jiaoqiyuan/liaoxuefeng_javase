@@ -873,6 +873,8 @@ Nov 29, 2016 8:15 PM
 - 测试异常可以使用@Test(excepted = Exception.class)
 - 对可能发生的每种类型的异常进行测试
 
+### 参数化测试
+- 
  
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
