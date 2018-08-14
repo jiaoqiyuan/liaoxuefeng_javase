@@ -874,7 +874,24 @@ Nov 29, 2016 8:15 PM
 - 对可能发生的每种类型的异常进行测试
 
 ### 参数化测试
-- 
- 
+
+### 超时测试
+- @Test(timeout=1000)可以设置超时
+- timeout单位是毫秒
+- 超时测试不能取代性能测试和压力测试
+
+
+# Java正则表达式
+## 正则表达式入门
+### 正则表达式简介
+- 正则表达式是一个字符串
+- 正则表达式用字符串描述一个匹配规则
+- 使用正则表达式可以快速判断给定的字符串是否符合匹配规则
+- Java内建正则表达式引擎是java.util.regex
+
+### 匹配规则
+
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
