@@ -1056,5 +1056,17 @@ SHA-1算法：
 - 使用256位加密需要修改JDK的policy文件
 - 使用对称加密算法需要指定：算法名称/工作模式/填充模式
 
+### 口令加密
+
+PBE:Password Based Encryption
+- 由用户输入口令，采用随机数杂凑计算出密钥再进行加密
+- Password：用户口令，例如"hello123"
+- Salt：随机生成的byte[]
+- key：generate(byte[] salt, String password)
+- PBE算法通过用户口令和随机salt计算key然后加密
+- key通过口令和随机salt计算得出，提高了安全性
+- PBE算法内部使用的仍然是标准对称加密算法（例如AES）
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
