@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="log4j-core-2.11.0" level="project" />
     <orderEntry type="library" name="junit-4.10" level="project" />
+    <orderEntry type="library" name="bcprov-jdk15on-160" level="project" />
   </component>
 </module>
