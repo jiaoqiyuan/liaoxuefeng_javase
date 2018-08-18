@@ -1133,5 +1133,57 @@ Java多线程编程的特点：
 - 网络、数据库、Web等都依赖多线程模型
 - 必须掌握Java多线程编程才能继续深入学习
 
+### 创建Java多线程
+java语言内置多线程支持：
+- 一个java程序实际上是一个JVM进程
+- JVM用一个主线程来执行main()方法
+- 在main()方法中又可以启动多个线程
+
+创建一个线程对象，并启动一个线程
+
+```java
+Thread t = new Thread();
+t.start();
+```
+
+- Java用Thread对象表示一个线程，通过调用start()启动一个线程
+- 一个线程对象只能调用一次start()
+- 线程的执行代码是run()方法
+- 线程调度由操作系统决定，程序本身无法决定
+- Thread.sleep()可以把当前线程暂停一段时间
+
+### 线程的状态
+- 线程的状态
+    - New
+    - Runnable
+    - Blocked
+    - Waiting
+    - Timed Waiting
+    - Terminated
+- 线程终止的原因：
+    - run()方法执行到return语句返回（线程正常终止）
+    - 因为未捕获异常导致的终止（线程意外终止）
+    - 对某个线程对Thread实例调用stop()方法强制终止（不推荐）
+- 一个线程可以等待另一个线程直到运行结束（join）
+- 通过对另一线程对象调用join()放回可以等待其执行结束
+- 可以指定等待时间，超过等待时间线程任然没有结束就不睬等待
+- 对已经运行结束的线程调用join()方法会立刻返回
+
+### 中断线程
+- 调用interrupted()方法可以中断一个线程
+- 通过检测isInterrupted()标志获取当前线程是否已经中断
+- 如果线程处于等待状态，该线程会捕获InterruptedException
+- isInterrupted()为true或这捕获来InterruptedException都应该立刻结束
+- 通过标志位判断需要争取使用volatile关键字
+- volatile关键字解决了共享变量在线程间的可见性问题
+
+### 守护线程
+- Java程序入口就是由JVM启动main线程
+    - main线程又可以启动其他线程
+    - 当所有线程都运行结束时，JVM退出，进程结束
+- 守护线程是为其他线程服务的线程
+- 所有非守护线程都执行完毕后，虚拟机退出
+- 守护线程不能持有资源（如打开文件等）
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
