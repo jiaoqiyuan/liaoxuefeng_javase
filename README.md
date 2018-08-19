@@ -1185,5 +1185,146 @@ t.start();
 - 所有非守护线程都执行完毕后，虚拟机退出
 - 守护线程不能持有资源（如打开文件等）
 
+### 线程同步
+- 对共享变量进行写入时，必须保证是原子操作
+- 原子操作是指不能被中断的一个或一系列操作
+- synchronized会导致性能下降的问题
+
+- 多线程同时修改变量，会造成逻辑错误
+    - 需要使用synchronized同步
+    - 同步的本质就是给指定对象加锁
+    - 注意加锁对象必须是同一个实例
+- 对JVM定义的单个原子操作不需要同步
+
+### synchronized方法
+- 添加synchronized块时：
+    - 锁住哪个对象？
+    - 数据封装，把同步逻辑封装到持有数据的实例中
+- 线程安全的类：
+    - 不变类：String，Integer，LocalDat
+    - 没有成员变量的类，Math
+    - 正确使用了synchronized的类：StringBuffer
+- 非线程安全的类：
+    - 不能在多线程中共享实例并修改：ArrayList
+    - 可以在多想城中以只读方式共享
+- 使用synchronized修饰方法可以把整个方法变为同步代码块
+- synchronized方法加锁对象是this
+- 通过合理的设计和数据封装可以让一个类变为线程安全
+- 一个类没有特殊说明默认不是线程安全
+- 多线程能否某个非线程安全的实例，需要具体问题具体分析
+
+### 死锁
+- 死锁形成的条件
+    - 两个线程各自持有不同的所
+    - 两个线程各自试图获取对方已持有的锁
+    - 双方无限等待下去：导致死锁
+- 死锁发生后：
+    - 没有任何机制能够解除死锁
+    - 只能强制结束JVM进程
+- 如何避免死锁
+    - 线程获取锁的顺序要完全一致
+
+### wait和notify
+- wait/notify用于多线程协调运行
+- 多线程协调运行：当条件不满足时，线程进入等待状态
+- 在synchronized内部可以调用wait使线程进入等待状态
+- 必须在已获得的锁对象上调用wait方法
+- 在synchronized内部可以调用notify和notifyAll方法唤醒其他等待线程
+- 必须在已获得的锁上调用notify和notifyAll方法
+
+## 高级concurrent包
+### ReentrantLock
+- ReentrantLock可以替代synchronized
+- ReentrantLock获取锁更安全
+- 必须使用try……finally保证正确获取和释放锁
+
+### ReadWriteLOck
+- 使用ReadWriteLock可以解决：
+    - 只允许一个线程写入（其他线程既不能写入也不能读取）
+    - 没有写入时，多个线程允许同时读（提高性能）
+- ReadWriteLock适用条件：
+    - 同一个实例，有大量线程读取，仅有少量线程修改
+- 使用ReadWriteLock可以提高读取效率
+
+### Condition
+- Condition.await / signal / signalAll 原理和wait / notify / notifyAll 一致
+- await会释放当前锁， 进入等待状态
+- signal会唤醒某个等待的线程
+- signalAll会唤醒所有等待线程
+- 唤醒线程从await返回后需要重新获得锁
+
+### Concurrent集合
+- java.util.concurrent提供了线程安全的Blocking集合：
+
+| Interface | Non-thread safe | Thread safe |
+| :---: | :---: | :--- : |
+| List | ArrayList | CopyOnWriteArrayList |
+| Map | HashMap | ConcurrentHashMap |
+| Set | HashSet, TreeSet | CopyOnWriteArraySet |
+| Queue | ArrayDeque, LinkedList | ArrayBlockingQueue, LinkedBlockingQueue |
+| Deque | ArrayDeque, LinkedList | LinkedBlockingDeque |
+
+- java.util.Collections工具类还提供了旧的线程安全集合转换器
+
+```java
+Map unsafeMap = new HashMap();
+Map threadSafeMap = Collections.synchronizedMap(unsafeMap);
+```
+- 使用java.util.concurrent提供的Blocking集合可以简化多线程编程
+    - 多线程同时访问Blocking集合是安全的
+    - 尽量使用JDK提供的concurrent集合，避免自己编写同步代码
+
+### Atomic
+- java.util.concurrent.atomic提供了一组原子类型操作：
+- atomic类可以实现无锁的线程安全访问
+- 使用java.util.concurrent.atomic可以简化多线程编程
+    - AtomicInteger / AtomicLong / AtomicIntegerArray等
+    - 原子操作实现了无锁的线程安全
+    - 适用于计数器，累加器等
+    
+### ExecutorService
+- java语言内置多线程支持：
+    - 创建线程需要操作系统资源（线程资源，栈空间……）
+    - 频繁创建和销毁线程需要消耗大量时间
+- 线程池
+    - 线程池维护若干个线程，处于等待状态，可以高效执行大量小任务
+    - 如果有新任务，就分配一个空闲线程执行
+    - 如果所有线程都处于忙碌状态，新任务就放入队列等待
+- JDK提供了ExecutorService接口表示线程池，提供线程池功能：
+    - FixedThreadPool：线程数固定
+    - CachedThreadPool：线程数根据任务动态调整
+    - SingleThreadExecutor：仅单线程执行
+- ScheduledThreadPool，提供了静态方法创建不同类型的ExecutorService:
+    - 一个任务可以定期反复执行
+    - Fixed Rate
+    - Fixed Delay
+- java.util.Timer也是定时器
+    - 一个Timer对应一个Thread
+    - 必须在主线程结束时调用Timer.cancel()
+- 必须调用shutdown()关闭ExecutorService
+
+### Future
+- 提交Callable任务，可以获得一个Future对象
+- 可以用Future在将来某个时刻获取结果
+
+### CompletableFuture
+- 优点：
+    - 异步任务结束时，会自动调用某个对象的方法
+    - 异步任务出错时，会自动调用某个对象的方法
+    - 主线程设置好回调后，不用关心异步任务的执行
+- CompletableFuture对象可以指定异步处理流程
+    - thenAccept()处理正常结果
+    - exceptional()处理异常结果
+    - thenApplyAsync()用于串行化另一CompletableFuture
+    - anyOf / allOf用于并行化两个CompletableFuture
+
+### Fork / Join
+- Fork/Join是一种基于"分治"的算法：
+    - 分解任务 + 合并结果
+- ForkJoinPool线程池可以把一个大任务分拆成小任务并行执行
+- 任务类必须继承自RecursiveTask / RecursiveAction
+- 使用Fork/Join模式可以进行并行计算提高效率
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
