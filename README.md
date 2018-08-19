@@ -1325,6 +1325,13 @@ Map threadSafeMap = Collections.synchronizedMap(unsafeMap);
 - 任务类必须继承自RecursiveTask / RecursiveAction
 - 使用Fork/Join模式可以进行并行计算提高效率
 
+## 线程工具类
+### ThreadLocal
+- 如何在一个线程内传递状态？
+    - ThreadLocal可以在一个线程中传递同一个对象
+- ThreadLocal表示线程的"局部变量"，它确保每个线程的ThreadLocal变量都是各自独立的
+- ThreadLocal适合在一个线程的处理流程中保持上下文（避免了同一个参数在所有方法中传递）
+- 使用ThreadLocal要用try……finally结构
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
