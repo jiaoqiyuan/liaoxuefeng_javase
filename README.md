@@ -1333,5 +1333,24 @@ Map threadSafeMap = Collections.synchronizedMap(unsafeMap);
 - ThreadLocal适合在一个线程的处理流程中保持上下文（避免了同一个参数在所有方法中传递）
 - 使用ThreadLocal要用try……finally结构
 
+
+# Java网络编程
+## Socket编程
+### 网络编程概念
+计算机网络基本概念
+- 互联网：网络的网络
+- IP地址：计算机在网络中的标示
+- 网关：负责链接多个网络
+- 协议：TCP/IP协议
+- TCP协议：面向连接，可靠传输
+
+### TCP编程
+TCP编程模型
+- 客户端使用Socket(InetAddress, port)打开Sockt
+- 服务端使用ServerSocket监听端口
+- 服务端用accept接收连接并返回Socket
+- 双方通过Socket打开InputStream/OutputStream读写数据
+- flush()用于强制输出缓冲区
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
