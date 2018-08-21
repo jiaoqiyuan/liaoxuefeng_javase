@@ -1333,5 +1333,11 @@ Map threadSafeMap = Collections.synchronizedMap(unsafeMap);
 - ThreadLocal适合在一个线程的处理流程中保持上下文（避免了同一个参数在所有方法中传递）
 - 使用ThreadLocal要用try……finally结构
 
+### TCP多线程编程
+- 服务器端使用无限循环
+- 每次accept返回后，创建新的线程来处理客户端请求
+- 每个客户端请求对应一个服务线程
+- 使用线程池可以提高运行效率
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
