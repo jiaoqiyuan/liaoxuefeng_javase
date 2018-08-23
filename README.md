@@ -1352,5 +1352,16 @@ TCP编程模型
 - 双方通过Socket打开InputStream/OutputStream读写数据
 - flush()用于强制输出缓冲区
 
+### TCP多线程编程
+TCP多线程编程模型
+- 服务器端使用无限循环
+- 每次accept返回后，创建行的县城来处理客户端请求
+- 每个客户端请求对应一个服务线程
+- 使用线程池可以提高运行效率
+
+### UDP编程
+
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
