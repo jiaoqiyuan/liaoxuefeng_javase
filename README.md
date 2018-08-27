@@ -1380,7 +1380,10 @@ SMTP协议
 
 ### 接受Email
 
-
+### HTTP协议
+- HTTP协议是一个给予TCP的请求/响应协议
+- 广泛应用于浏览器、手机APP与服务器的数据交互
+- Java提供了HttpURLConnection实现HTTP客户端
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
