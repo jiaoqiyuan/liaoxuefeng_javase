@@ -1356,8 +1356,98 @@ TCP编程模型
 - 每次accept返回后，创建新的线程来处理客户端请求
 - 每个客户端请求对应一个服务线程
 - 使用线程池可以提高运行效率
+TCP多线程编程模型
+- 服务器端使用无限循环
+- 每次accept返回后，创建行的县城来处理客户端请求
+- 每个客户端请求对应一个服务线程
+- 使用线程池可以提高运行效率
+
+### UDP编程
+UDP编程模型
+- 客户端使用DatagramSocket.connect()指定远程地址和端口
+- 服务端用DatagramSocket(port)监听端口
+- 双方通过receive/send读写数据
+- 没有IO流接口
+
+## Email编程
+### 发送Email
+SMTP协议
+- Simple Mail Transport Protocol
+- 标准端口25
+- 加密端口465 / 587
+
+如何发送Email
+- 使用JavaMail API
+- 无需关心SMTP协议原理
 
 
+### 接受Email
+
+### HTTP协议
+- HTTP协议是一个给予TCP的请求/响应协议
+- 广泛应用于浏览器、手机APP与服务器的数据交互
+- Java提供了HttpURLConnection实现HTTP客户端
+
+### RMI远程调用
+-目的是把一个接口暴露给远程
+- RMI远程调用是针对Java怨言的一种远程调用
+- 远程接口必须继承自Remote
+- 远程方法必须抛出RemoteException
+- 客户端调用RMI方法和调用本地方法类似
+- RMI方法调用被自动通过网络传输到服务端
+- 服务端通过自动生成的stub类接收远程调用请求。
+
+# Java操作XML和JSON
+## XML
+### XML介绍
+- XML是可扩展标记语言的缩写
+- 纯文本数据
+- 用于表示复杂的结构化数据
+- 用于数据的存储和传输
+- 数据庞大，格式复杂
+
+### DOM
+- Java DOM API将XML解析为DOM
+- 可在内存中完整表示XML数据结构
+- 缺点是解析速度慢，内存占用大
+
+### SAX
+- 一种流式解析XML的API
+- 通过事件触发，速度快
+- 调用方通过回调方法获得数据
+
+### 第三方XML库
+- 开源的Jackson
+- 使用Jackson可以快速在XML和JavaBean之间互相转换
+- 可以使用Annotation定制序列化和反序列化
+
+## JSON
+### JSON介绍
+- JSON只允许UTF-8编码
+- 必须使用双引号
+- 特殊字符用\转义
+- 适合表示层次结构
+- 结构简单，仅支持集中类型
+    - {...}键值对
+    - [...]数组
+    - String字符串
+    - Number数值
+    - Boolean布尔值
+    - null空值
+- 常用第三方库
+    - Jackson
+    - gson
+    - fastjson
+    - ...
+- Json是轻量级的数据表示方式
+    - 格式简单
+    - 解析速度快
+    - 适合Web应用
+
+### 处理JSON
+- Jackson提供了读写JSON的API
+    - 实现JSON和JavaBean的互相转换
+    - 可使用Annotation定制序列化和反序列化
 
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
