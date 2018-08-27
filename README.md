@@ -1385,5 +1385,15 @@ SMTP协议
 - 广泛应用于浏览器、手机APP与服务器的数据交互
 - Java提供了HttpURLConnection实现HTTP客户端
 
+### RMI远程调用
+-目的是把一个接口暴露给远程
+- RMI远程调用是针对Java怨言的一种远程调用
+- 远程接口必须继承自Remote
+- 远程方法必须抛出RemoteException
+- 客户端调用RMI方法和调用本地方法类似
+- RMI方法调用被自动通过网络传输到服务端
+- 服务端通过自动生成的stub类接收远程调用请求。
+
+
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpg
