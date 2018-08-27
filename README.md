@@ -1449,6 +1449,20 @@ SMTP协议
     - 实现JSON和JavaBean的互相转换
     - 可使用Annotation定制序列化和反序列化
 
+# JDBC编程
+## 关系数据库基础
+### 关系数据库简介
+- 关系数据库是目前使用最广泛的数据库
+- 建立在关系模型上
+- 基本结构是表
+- 主键用于唯一标识记录
+- 外键用于引用其他表的主键数据
+- 通过外键关联实现一对多/一对一/多对多关系
+
+### 安装MySQL
+## SQL入门
+## JDBC接口
+
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpgg
