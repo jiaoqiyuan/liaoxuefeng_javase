@@ -1461,8 +1461,77 @@ SMTP协议
 
 ### 安装MySQL
 ## SQL入门
-## JDBC接口
+### SQL简介
+- SQL是结构化查询语言
+- 针对关系型数据库设计
+- 各种数据库基本一致
+- 允许用户通过SQL查询数据而不必关心数据库底层存储结构
+- 可以和各种编程语言继承实现访问数据库的功能
+- 关键字不区分大小写
 
+### INSERT语句
+- INSERT语句可以向指定表插入一条记录
+```sql
+INSERT INTO 表名 (字段1, 字段2, ...) VALUES (数据1, 数据2, 数据3, ...)
+```
+
+### SELECT
+- 可以指定查询的列
+- 可以通过WHERE条件筛选符合条件的行
+- 可以使用聚合查询
+- 可以多表联合查询
+- 查询结果仍然是一个关系表
+
+### UPDATE语句
+- 可以设置某些列的值
+- 可以通过WHERE条件筛选符合条件的行
+- 执行结果为符合更新条件的行数
+
+### DELETE语句
+- 可以删除指定的行
+- 可以通过WHERE条件筛选符合条件的行
+- 执行结果为删除的行数
+
+## JDBC接口
+### JDBC简介
+- JDBC：Java DataBase Connectivity
+- Java程序访问数据库的标准接口
+- Java App -> JDBC Interface -> JDBC Driver -> Database
+- Java App -> JDBC Interface -> MySQL Driver -> MySQL Server
+- 使用JDBC的好处
+    - 各个数据库厂商使用相同的接口，Java代码不需要针对不同的数据库开发
+    - Java程序编译期仅以来java.sql.*，不依赖具体数据库的jar包
+    - 可以随时替换底层数据库，访问数据库的Java代码不变
+    
+- JDK提供JDBC接口，数据库厂商提供JDBC驱动（JDBC实现）
+- Connection代表一个JDBC连接
+
+### JDBC查询
+- 始终建议使用PreparedStatement：
+- 查询结果是ResultSet
+
+### JDBC更新
+- 使用PreparedStatement的executeUpdate()进行更新
+- 更新操作包括UPDATE、INSERT和DELETE语句
+- 更新结果是int
+
+### 数据库事物 Transaction
+- 数据库事物：
+    - 若干个SQL语句构成的一个操作序列
+    - 要么全部执行成功
+    - 要么全部不执行
+- 数据库事物具有ACID特性
+    - Atomicity：原子性
+    - Consistency：一致性
+    - Isolation：隔离性
+    - Durability：持久性
+- 事物隔离级别
+    - 脏读：Dirty Read
+    - 非重复读：Non repeatable Read
+    - 幻读：Phantom Read
+- JDBC提供了对事物的支持
+
+### 
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpgg
