@@ -1360,6 +1360,25 @@ TCP多线程编程模型
 - 使用线程池可以提高运行效率
 
 ### UDP编程
+UDP编程模型
+- 客户端使用DatagramSocket.connect()指定远程地址和端口
+- 服务端用DatagramSocket(port)监听端口
+- 双方通过receive/send读写数据
+- 没有IO流接口
+
+## Email编程
+### 发送Email
+SMTP协议
+- Simple Mail Transport Protocol
+- 标准端口25
+- 加密端口465 / 587
+
+如何发送Email
+- 使用JavaMail API
+- 无需关心SMTP协议原理
+
+
+### 接受Email
 
 
 
