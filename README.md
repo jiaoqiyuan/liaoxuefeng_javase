@@ -1531,7 +1531,194 @@ INSERT INTO 表名 (字段1, 字段2, ...) VALUES (数据1, 数据2, 数据3, ..
     - 幻读：Phantom Read
 - JDBC提供了对事物的支持
 
-### 
+### JDBC连接池
+- JDBC连接池接口：javax.sql.DataSource
+- JDBC连接池实现：
+    - HikariCP
+    - C3P0
+    - BoneCP
+    - Druid
+- 可以复用Connection，避免反复创建新连接，提高运行效率
+- 可以配置连接池的详细参数
+
+# Java函数式编程
+## Lambda表达式
+### Lambda基础
+- 函数式编程（Functional Programming）：
+    - 把函数作为基本运算单元
+    - 函数可以作为变量
+    - 函数可以接收函数
+    - 函数可以返回函数
+- Lambda表达式：
+    - 简化语法
+    - JDK >= 1.8
+    - 类型自动推断：
+        - Comparator接口
+        - 传入String，String
+        - 返回int
+- Java单方法接口
+    - Comparator
+    - Runnable
+    - Callable
+    
+- 只定义单个抽象方法的接口可以被标注为@Functinalinterface
+- 但抽象方法接口被称为函数式接口
+
+### Method Reference
+- 方法引用：如果某个方法签名和接口恰好一致：可以直接传入方法引用（String::compareTo）
+- Functional Interface 可以传入：
+    - 接口的实现类（比较繁琐）
+    - Lambda表达式
+    - 符合方法签名的静态方法
+    - 符合方法签名的实例方法（实例类型被看做第一个参数类型）
+    - 符合方法签名的构造方法（实例类型被看做返回类型）
+
+## Stream
+### Stream简介
+- java8引入Stream，在java.util.stream
+- 不同于java.io的InputStream / OutputStream:
+
+|  | java.io | java.util.stream
+| :---: | :---: | :---:
+| 存储 | 顺序读写的byte / char | 顺序输出的任意Java对象
+| 用途 | 序列化至文件 / 网络 | 内存计算 / 业务逻辑
+
+- 不同于java.util.List:
+
+|  | java.util.List | java.util.stream
+| :---: | :---: | :---:
+| 元素 | 已分配并存储在内存 | 未分配，实时计算
+| 用途 | 操作一组已存在的Java对象 | 惰性计算
+
+- stream特点：
+    - 可以“存储”有限个或无限个元素
+    - 可以转换为另一个Stream
+    - 计算通常发生在最后结果的获取（惰性计算）
+
+### 创建Stream
+- 创建Stream：
+```
+Stream<Integer> s = Stream.of(1, 2, 3, 4, 5);
+Stream<Integer> s = Arrays.stream(theArray);
+Stream<Integer> s = aList.stream();
+```
+
+```
+Stream<T> s = Stream.generate(Supplier<T> s);
+```
+
+```
+try(Stream<String> lines = Files.lines(Paths.get("/path/to/access.log"))){
+    ...
+}
+Files的lines也可以创建一个Stream
+```
+- 基本类型的Stream有IntStream / LongStream / DoubleStream
+
+### Stream.map
+- Stream.map是Stream的转换方法，把一个Stream转化成另一个Stream
+- map()方法将一个Stream的每个元素映射成另一个元素并生成一个新的Stream
+- 可以将一种元素类型转换成另一种元素类型
+
+### Stream.filter()
+- filter()方法用于将一个Stream的每个元素进行测试，通过测试的元素被过滤后生成一个新的Stream
+- 用于排除不满足条件的元素
+
+### reduce
+- Stream.reduce()是一个Stream的聚合方法，把一个Stream的所有元素聚合成一个结果
+- 将一个Stream的每个元素依次作用于BFunction，并将结果合并
+- reduce是聚合方法，聚合方法会立刻对Stream进行运算
+
+### 其他操作
+- 排序：
+```
+Stream<T> sorted()  //按元素默认大小进行排序（必须实现Comparable接口）
+Stream<T> sorted(Comparable<? super T> cp)  //按指定Comparable比较的结果排序
+```
+- 去除重复元素
+```
+Stream<T> distinct()    //返回去除重复元素的新Stream
+// [1, 2, 3, 4, 5, 4, 3] -> [1, 2, 3, 4, 5]
+```
+- 截取
+```
+Stream<T> limit(long)   //截取当前Stream的最多n个元素
+Stream<T> skip(long)    //跳过当前Stream的前N个元素
+```
+- 将两个Stream合并成一个
+```
+Stream<T> s = Stream.concat(
+    Stream.of(1, 2, 3)
+    Stream.of(4, 5, 6)
+);
+// 1, 2, 3, 4, 5, 6
+```
+- flatMap：把元素映射为Stream然后合并成一个新的Stream：
+```
+Stream<List<Integer>> s = Stream.of)
+    Arrays.asList(1, 2, 3),
+    Arrays.asList(4, 5, 6),
+    Arrays.asList(7, 8, 9));
+
+// 转换为Stream<Integer>
+Stream<Integer> i = s.flatMap(list -> list.stream())
+```
+
+| 1 2 3 | 4 5 6 | 7 8 9
+|:---:| :--- : | :---:
+|  | flatMap | 
+| | 1 2 3 4 5 6 7 8 9 |
+
+- 把一个Stream转换为可以并行处理的Stream：
+```
+Stream<String> s = ...
+String[] result = s.parallel()  // 贬称一个可以并行处理的Stream
+                    .sorted()   // 可以进行并行排序
+                    .toArray(String[]::new);
+```
+- 聚合方法
+```
+Optional<T> reduce(BinaryOperator<T> bo)
+long count()    //元素个数
+
+T max(Comparator<? super T> cp)     //找最大元素
+T min(Comparator<? super T> cp)     //找最小元素
+
+// 针对IntStream / LongStream / DoubleStream
+sum()   //求和
+average()   //求平均数
+
+```
+- 测试Stream的元素是否满足一定的条件
+```
+boolean allMatch(Predicate<? super T>)  //所有元素均满足条件？
+boolean anyMatch(Predicate<? super T>)  //至少有一个元素满足测试条件？
+```
+- 循环处理Stream的每个元素
+```
+void forEach(Consumer<? super T> action)
+
+//示例
+Stream<String> s = ...
+s.forEach(str -> {
+    System.out.println("Hello, " + str);
+});
+```
+- 把Stream转化成其他类型
+```
+Object[] toArray()  //转换为Object数组
+A[] toArray(IntFunction<A[]>)    //转换为A[]数组
+<R, A> R collect(Collector<? super T, A, R> collector)  //转换为List/Set等集合类型
+
+//示例
+Stream<String> s = ...
+String[] arr = s.toArray(String[]::new) //转换为String数组
+List<String> list = s.collect(Collectors.toList)    //转换为List
+```
+
+
+
+
 
 [1]: https://www.tutorialspoint.com/java/images/number_classes.jpg
 [2]: http://7xs7kk.com1.z0.glb.clouddn.com/exception-structure.jpgg
