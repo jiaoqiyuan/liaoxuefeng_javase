@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/02_oop" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/03_exception" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/04_reflect" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/05_collection" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/06_file" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/07_Date" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/08_JUnit" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/09_Regex" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/10_Sec" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/11_Thread" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/13_NetProgram" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/14_XMLJSON" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/16_FunctionalProgramming" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
